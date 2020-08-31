@@ -15,7 +15,7 @@ const Favorite = (props) => {
 
 const styels = StyleSheet.create({
     listtext:{
-        textAlign: 'center',
+        textAlign:'center',
         justifyContent: 'center',
         marginTop: 10
     }

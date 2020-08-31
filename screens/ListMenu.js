@@ -12,11 +12,9 @@ import { MEALS } from "../data/dummy-data";
 
 const ListMenu = ({ navigation, route }) => {
   const { itemId } = route.params;
-  console.log(itemId);
 
   return (
     <View>
-      <Text>itemId: {JSON.stringify(itemId)}</Text>
       <FlatList
         data={MEALS}
         renderItem={({ item }) => {
@@ -67,7 +65,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#f5f5f5",
     borderRadius: 20,
     overflow: "hidden",
-    marginLeft: 45
+    marginLeft: 45,
+    marginTop: 10
   },
   bgImage: {
     width: "100%",

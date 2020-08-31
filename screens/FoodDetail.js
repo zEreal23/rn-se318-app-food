@@ -5,11 +5,8 @@ import { MEALS } from '../data/dummy-data'
 
 const FoodDetail = ({ navigation, route }) => {
     const { itemId } = route.params;
-    console.log(itemId)
-
     return (
         <View>
-            <Text>itemId: {JSON.stringify(itemId)}</Text>
             <FlatList
                 data={MEALS}
                 renderItem={({ item }) => {

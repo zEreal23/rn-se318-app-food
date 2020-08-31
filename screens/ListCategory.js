@@ -9,7 +9,6 @@ import {
 } from "react-native";
 
 import { CATEGORIES } from "../data/dummy-data";
-//console.log(CATEGORIES)
 
 const ListCategory = (props) => {
   return (
