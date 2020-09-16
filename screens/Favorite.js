@@ -4,8 +4,6 @@ import { CATEGORIES } from '../data/dummy-data';
 
 
 const Favorite = (props) => {
-
-
     return (
         <View >
             <Text style={styels.listtext}>Favorite List</Text>

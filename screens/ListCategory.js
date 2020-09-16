@@ -25,11 +25,13 @@ const ListCategory = (props) => {
                 margin: 15,
                 height: 50,
                 overflow: "hidden",
-                alignItems: 'center'
+                alignItems: 'center',
+                justifyContent: 'center'
               }}
               onPress={() => {
                 props.navigation.navigate("Menu", {
                   itemId: item.id,
+                  itemColor: item.color
                 });
               }}
             >

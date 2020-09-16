@@ -6,54 +6,57 @@ import {
   StyleSheet,
   TouchableOpacity,
   ImageBackground,
+  Button
 } from "react-native";
 
 import { MEALS } from "../data/dummy-data";
 
-const ListMenu = ({ navigation, route }) => {
-  const { itemId } = route.params;
+const ListMenu = (props) => {
+  const { itemId, itemColor } = props.route.params;
+
+  const displayMeals = MEALS.filter(
+    meal => meal.categoryIds.indexOf(itemId) >= 0
+  )
 
   return (
     <View>
       <FlatList
-        data={MEALS}
+        data={displayMeals}
         renderItem={({ item }) => {
-          for (let i = 0; i <= MEALS.length; i++) {
-            if (itemId === item.categoryIds[i]) {
-              return (
-                <View style={styles.mealItme}>
-                  <TouchableOpacity
-                    onPress={() => {
-                      navigation.navigate("Detail", {
-                        itemId: item.id,
-                      });
-                    }}
-                  >
-                    <View style={{ height: 150 }}>
-                      <View style={styles.mealHeader}>
-                        <ImageBackground
-                          source={{ uri: item.imageUrl }}
-                          style={styles.bgImage}
-                        >
-                          <View style={styles.titleContainer}>
-                            <Text style={styles.title} numberOfLines={1}>{item.title}</Text>
-                          </View>
-                        </ImageBackground>
-                        <View style={styles.mealDetail}>
-                          <Text>{item.duration}m</Text>
-                          <Text>{item.complexity.toUpperCase()}</Text>
-                          <Text>{item.affordability.toUpperCase()}</Text>
-                        </View>
+          return (
+            <View style={styles.mealItme}>
+              <TouchableOpacity
+                onPress={() => {
+                  props.navigation.navigate("Detail", {
+                    itemId: item.id,
+                    itemName: item.title,
+                  });
+                }}
+              >
+                <View style={{ height: 150 }}>
+                  <View style={styles.mealHeader}>
+                    <ImageBackground
+                      source={{ uri: item.imageUrl }}
+                      style={styles.bgImage}
+                    >
+                      <View style={styles.titleContainer}>
+                        <Text style={styles.title} numberOfLines={1}>{item.title}</Text>
                       </View>
+                    </ImageBackground>
+                    <View style={styles.mealDetail}>
+                      <Text>{item.duration}m</Text>
+                      <Text>{item.complexity.toUpperCase()}</Text>
+                      <Text>{item.affordability.toUpperCase()}</Text>
                     </View>
-                  </TouchableOpacity>
+                  </View>
                 </View>
-              );
-            }
-          }
+              </TouchableOpacity>
+            </View>
+          );
         }}
         keyExtractor={(item) => item.id}
       />
+      <Button title="Go to Back" onPress={() => props.navigation.navigate("Category")} />
     </View>
   );
 };
