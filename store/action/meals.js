@@ -12,7 +12,7 @@ export const setFilters = filterSetting =>{
 
 export const createProduct = (id, catId, mealtitle, afford, complex, imageurl, cooktime) => {
     return async dispatch => {
-        const response = await fetch('https://rn-fs-4f5f9.firebaseio.com/products.json', {
+        const response = await fetch('เปลี่ยน api จาก firebase/products.json', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
