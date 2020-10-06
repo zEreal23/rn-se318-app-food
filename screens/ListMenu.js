@@ -8,13 +8,18 @@ import {
   ImageBackground,
   Button
 } from "react-native";
-
-import { MEALS } from "../data/dummy-data";
+import {useSelector} from 'react-redux'
 
 const ListMenu = (props) => {
   const { itemId, itemColor } = props.route.params;
 
-  const displayMeals = MEALS.filter(
+  const availableMeals = useSelector(state => state.meals.filteredMeals);
+
+  const favMeals = useSelector(state => state.meals.favoriteMeals.some(
+    meal => meal.id === itemId
+  ));
+
+  const displayMeals = availableMeals.filter(
     meal => meal.categoryIds.indexOf(itemId) >= 0
   )
 
@@ -30,6 +35,7 @@ const ListMenu = (props) => {
                   props.navigation.navigate("Detail", {
                     itemId: item.id,
                     itemName: item.title,
+                    favMeal: favMeals
                   });
                 }}
               >

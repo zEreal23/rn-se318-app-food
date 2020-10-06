@@ -1,21 +1,33 @@
-import React, { useLayoutEffect } from 'react';
-import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Button } from 'react-native';
+import React, { useLayoutEffect, useCallback, useState, useEffect } from 'react';
+import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Button, Alert } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { MEALS } from '../data/dummy-data'
+import {toggleFavorite} from '../store/action/meals';
+
 
 const FoodDetail = (props) => {
-    const itemName = props.route.params;
-    
-    const selectedMeal = MEALS.find(
+    const availableMeals = useSelector(state => state.meals.meals);
+    const { itemName, itemId, favMeal } = props.route.params;
+    const selectedMeal = availableMeals.find(
         (meal) => meal.id === props.route.params.itemId
     );
+
+    const dispatch = useDispatch();
+    const toggleFavoriteHandler = useCallback(() => {
+        dispatch(toggleFavorite(itemId));
+    }, [dispatch]);
+
+    const favthisMeals = useSelector(state => state.meals.favoriteMeals.some(
+        meal => meal.id === itemId
+    ));
 
     useLayoutEffect(() => {
         props.navigation.setOptions({
             headerRight: () => (
-                <TouchableOpacity style={styles.favStyle} onPress={() => console.log('favorite!')}  >
-                    <MaterialIcons name="star" size={24} color="black" />
+                <TouchableOpacity style={styles.favStyle}
+                onPress={toggleFavoriteHandler}>
+                    <MaterialIcons name={favthisMeals ? "star" : "star-border"} size={24} color="black"/>
                 </ TouchableOpacity>
             ),
         });
@@ -66,7 +78,7 @@ const styles = StyleSheet.create({
     details: {
         fontSize: 14,
         padding: 5,
-        
+
     },
     title: {
         fontSize: 24,

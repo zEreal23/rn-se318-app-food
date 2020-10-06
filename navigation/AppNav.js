@@ -10,13 +10,15 @@ import ListCategory from '../screens/ListCategory';
 import ListMenu from '../screens/ListMenu';
 import FoodDetail from '../screens/FoodDetail';
 import Favorite from '../screens/Favorite';
-import Filter from '../screens/Filter'
+import Filter from '../screens/Filter';
+import AddFood from '../screens/AddFood';
+import ShowInput from '../screens/ShowInput'
 
 
 const HeaderLeft = () => {
     const navigation = useNavigation();
     return (
-        <MaterialIcons name="menu" size={24} color="black" onPress={() => navigation.openDrawer()} />
+        <MaterialIcons name="menu" size={24} color="white" onPress={() => navigation.openDrawer()} />
     )
 }
 
@@ -82,6 +84,44 @@ function FavoriteNavigator() {
     )
 }
 
+function AddNavigator() {
+    return (
+        <Stack.Navigator screenOptions={{
+            headerLeft: () => <HeaderLeft />
+        }}>
+            <Stack.Screen name="Add" component={AddFood} options={{
+                title: "Add a New Meal",
+                headerStyle: {
+                    backgroundColor: '#f4511e',
+                },
+                headerTitleStyle: {
+                    fontWeight: 'bold',
+                    color: 'white'
+                },
+            }} />
+        </Stack.Navigator>
+    )
+}
+
+function ShowNavigator() {
+    return (
+        <Stack.Navigator screenOptions={{
+            headerLeft: () => <HeaderLeft />
+        }}>
+            <Stack.Screen name="Show" component={ShowInput} options={{
+                title: "Show New Meals",
+                headerStyle: {
+                    backgroundColor: '#f4511e',
+                },
+                headerTitleStyle: {
+                    fontWeight: 'bold',
+                    color: 'white'
+                },
+            }} />
+        </Stack.Navigator>
+    )
+}
+
 const Tabs = createBottomTabNavigator();
 function TabsNav({  navigation, route }) {
     return (
@@ -91,7 +131,7 @@ function TabsNav({  navigation, route }) {
                 if (route.name == "Home") {
                     iconName = "home"
                 } else if (route.name == "Favorite") {
-                    iconName = "star-border"
+                    iconName = "star"
                 }
                 return <MaterialIcons name={iconName} size={24} />
             }
@@ -108,6 +148,8 @@ function MyDrawer({navigation}) {
         <Drawer.Navigator>
             <Drawer.Screen name="Home" component={TabsNav} />
             <Drawer.Screen name="Filter" component={FilterNavigator} />
+            <Drawer.Screen name="Add Meals" component={AddNavigator} />
+            <Drawer.Screen name="Show New Meals" component={ShowNavigator} />
         </Drawer.Navigator>
     );
 }
