@@ -1,5 +1,10 @@
 import Category from '../models/category';
 import Meal from '../models/meal';
+import Product from '../models/product'
+
+export const PRODUCT = [
+  new Product()
+];
 
 export const CATEGORIES = [
   new Category('c1', 'Italian', '#f5428d'),

@@ -13,6 +13,7 @@ import Favorite from '../screens/Favorite';
 import Filter from '../screens/Filter';
 import AddFood from '../screens/AddFood';
 import ShowInput from '../screens/ShowInput'
+import EditMeal from '../screens/EditMeal'
 
 
 const HeaderLeft = () => {
@@ -71,7 +72,7 @@ function FilterNavigator() {
                     fontWeight: 'bold',
                     color: 'white'
                 },
-            }}/>
+            }} />
         </Stack.Navigator>
     )
 }
@@ -106,24 +107,28 @@ function AddNavigator() {
 function ShowNavigator() {
     return (
         <Stack.Navigator screenOptions={{
-            headerLeft: () => <HeaderLeft />
+            headerStyle: {
+                backgroundColor: '#f4511e',
+            },
+            headerTitleStyle: {
+                fontWeight: 'bold',
+                color: 'white'
+            },
         }}>
             <Stack.Screen name="Show" component={ShowInput} options={{
-                title: "Show New Meals",
-                headerStyle: {
-                    backgroundColor: '#f4511e',
-                },
-                headerTitleStyle: {
-                    fontWeight: 'bold',
-                    color: 'white'
-                },
+                headerLeft: () => <HeaderLeft />,
+                title: "Show New Meals"
             }} />
+
+            <Stack.Screen name="EditMeals" component={EditMeal} options={({ route }) => ({
+                    title: route.params.mealtitle })}   
+            />
         </Stack.Navigator>
     )
 }
 
 const Tabs = createBottomTabNavigator();
-function TabsNav({  navigation, route }) {
+function TabsNav({ navigation, route }) {
     return (
         <Tabs.Navigator screenOptions={({ route }) => ({
             tabBarIcon: () => {
@@ -143,7 +148,7 @@ function TabsNav({  navigation, route }) {
 }
 
 const Drawer = createDrawerNavigator();
-function MyDrawer({navigation}) {
+function MyDrawer({ navigation }) {
     return (
         <Drawer.Navigator>
             <Drawer.Screen name="Home" component={TabsNav} />
@@ -157,7 +162,7 @@ function MyDrawer({navigation}) {
 
 
 
-function AppNav({navigation,route}) {
+function AppNav({ navigation, route }) {
     return (
         <NavigationContainer>
             <MyDrawer />

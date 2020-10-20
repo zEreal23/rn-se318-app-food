@@ -1,12 +1,15 @@
-import { MEALS } from '../../data/dummy-data';
-import { TOGGLE_FAVORITE , SET_FILTERS } from '../action/meals';
+import { MEALS, PRODUCT } from '../../data/dummy-data';
+import { TOGGLE_FAVORITE, SET_FILTERS, CREATE_PRODUCT} from '../action/meals';
+
+import Product from '../../models/product'
 
 const initialState = {
     meals: MEALS,
     filteredMeals: MEALS,
     favoriteMeals: [],
     products: [],
-    newMeals: []
+    mealProduct: PRODUCT,
+    addProduct: [],
 };
 
 const mealsReducer = (state = initialState, action) => {
@@ -41,6 +44,20 @@ const mealsReducer = (state = initialState, action) => {
                 return true;
             });
             return { ...state, filteredMeals: updatedFilteredMeals };
+        case CREATE_PRODUCT:
+            console.log('In reducer')
+            const newProduct = new Product(
+                action.productData.key,
+                action.productData.mealid,
+                action.productData.catId,
+                action.productData.mealtitle,
+                action.productData.afford,
+                action.productData.complex,
+                action.productData.imageurl,
+                action.productData.cooktime
+            );
+            console.log(newProduct)
+            return { ...state, addProduct: newProduct };
         default:
             return state;
     }

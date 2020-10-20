@@ -1,4 +1,4 @@
-import React,{useLayoutEffect ,useState , useCallback} from 'react';
+import React,{useLayoutEffect ,useState , useCallback ,useEffect} from 'react';
 import {View , TextInput ,Text ,StyleSheet , TouchableOpacity ,ScrollView} from 'react-native';
 import { useDispatch } from 'react-redux'
 import {createProduct} from '../store/action/meals'
@@ -20,30 +20,30 @@ const AddData = props =>{
 
 const AddFood = (props) =>{
     const {navigation} = props;
-    const [melId , setMelId] = useState('')
-    const [cateId , setCateId] = useState('')
-    const [titleName , setTitleName] = useState('')
-    const [affordabillit ,setAffordabillit] = useState('')
+    const [mealid , setMelId] = useState('')
+    const [categoryIds, setCateId] = useState('')
+    const [title , setTitleName] = useState('')
+    const [affordability ,setAffordabillit] = useState('')
     const [complexity , setComplexity] = useState('')
     const [imageUrl , setImgeUrl] = useState('')
     const [duration , setDuration] = useState('')
-
     const dispatch = useDispatch(); 
+
     const submitHandler = useCallback(() => {
         const mealAttributes = {
-            mealID: melId,
-            catID: cateId,
-            mealTitle: titleName,
-            afford: affordabillit,
+            mealID: mealid,
+            catID: categoryIds,
+            mealTitle: title,
+            afford: affordability, 
             complex: complexity,
             imageurl: imageUrl,
             cookTime: duration,
         };
-        console.log(mealAttributes.mealID)
-        dispatch(createProduct(mealAttributes.mealID, mealAttributes.catID, mealAttributes.mealTitle, mealAttributes.afford, mealAttributes.complex, mealAttributes.imageurl, mealAttributes.cookTime)); 
-    }, [dispatch, melId, cateId, titleName, affordabillit, complexity, imageUrl, duration]);
+        console.log(mealAttributes)
+        dispatch(createProduct(mealAttributes.mealID, mealAttributes.catID, mealAttributes.mealTitle, mealAttributes.afford, mealAttributes.complex, mealAttributes.imageurl, mealAttributes.cookTime));
+    }, [mealid, categoryIds, title, affordability, complexity, imageUrl, duration ,dispatch])
 
-    useLayoutEffect(()=>{
+    useEffect(()=>{
         navigation.setOptions({
             headerRight: () => (
                 <TouchableOpacity style={{padding:10}} 
@@ -51,45 +51,45 @@ const AddFood = (props) =>{
                     <Feather name="inbox" size={24} color="white" />
                 </ TouchableOpacity>
             ),
-        });
-    },[props.navigation])
- 
+        }); 
+    },[props.navigation , submitHandler]) 
+
     return(
         <ScrollView style={styles.screen}>
-            <AddData 
+            <AddData  
                 label = "Meal ID"
-                state={melId}
-                onChangeText={(newText) => setMelId(newText)}
+                state={mealid}
+                onChangeText={(newText1) => setMelId(newText1)}
             />
              <AddData 
                 label = "Category ID"
-                state={cateId}
-                onChangeText={(newText) => setCateId(newText)}
+                state={categoryIds}
+                onChangeText={(newText2) => setCateId(newText2)}
             />
              <AddData 
                 label = "Title"
-                state={titleName}
-                onChangeText={(newText) => setTitleName(newText)}
+                state={title}
+                onChangeText={(newText3) => setTitleName(newText3)}
             />
              <AddData 
                 label = "Affordabillity"
-                state={affordabillit}
-                onChangeText={(newText) => setAffordabillit(newText)}
+                state={affordability}
+                onChangeText={(newText4) => setAffordabillit(newText4)}
             />
              <AddData 
                 label = "Complexity"
                 state={complexity}
-                onChangeText={(newText) => setComplexity(newText)}
+                onChangeText={(newText5) => setComplexity(newText5)}
             />
              <AddData 
                 label = "ImageUrl"
                 state={imageUrl}
-                onChangeText={(newText) => setImgeUrl(newText)}
+                onChangeText={(newText6) => setImgeUrl(newText6)}
             />
              <AddData 
                 label = "Duration in seconds"
                 state={duration}
-                onChangeText={(newText) => setDuration(newText)}
+                onChangeText={(newText7) => setDuration(newText7)}
             />
         </ScrollView>
     )

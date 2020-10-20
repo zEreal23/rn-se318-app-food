@@ -22,7 +22,6 @@ const SWfilter = (props) => {
 
 const Filter = (props) => {
     const {navigation} = props;
-
     useLayoutEffect(()=>{
         navigation.setOptions({
             headerRight: () => (
